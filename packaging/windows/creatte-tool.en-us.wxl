@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Overrides for the setup wizard's WixUI strings, so its pages name the version being installed
+  ([CreatteToolVersion] is the full version, pre-release tag included, set in
+  creatte-tool.wxs) and say what the launcher is for.
+-->
+<WixLocalization Culture="en-US" xmlns="http://wixtoolset.org/schemas/v4/wxl">
+  <String Id="WelcomeDlgTitle" Value="{\WixUI_Font_Bigger}Welcome to [ProductName] [CreatteToolVersion]" />
+  <String Id="WelcomeDlgDescription" Value="Creatte Tool installs, updates and opens the Creatte Tool Suite: Creatte Photo, Creatte Vector, Creatte Film and nine more creative apps.&#13;&#10;&#13;&#10;It installs for you only, so no administrator rights are needed. Click Next to continue." />
+  <!-- The folder page (CreatteInstallDirDlg). -->
+  <String Id="InstallDirDlgTitle" Value="{\WixUI_Font_Title}Choose where to install" />
+  <String Id="InstallDirDlgDescription" Value="Click Next to install to the default folder, or click Change to pick another." />
+  <String Id="CreatteInstallDirNote" Value="Creatte Tool installs for you only, without administrator rights, so pick a folder you can write to (not Program Files). Updates install into the same folder." />
+  <String Id="CreatteDesktopShortcut" Value="Create a desktop shortcut" />
+  <String Id="VerifyReadyDlgInstallTitle" Value="{\WixUI_Font_Title}Ready to install [ProductName] [CreatteToolVersion]" />
+  <!-- Also shown after a repair or removal from the same wizard, so it doesn't say "installed". -->
+  <String Id="ExitDialogTitle" Value="{\WixUI_Font_Bigger}Completed the [ProductName] [CreatteToolVersion] Setup Wizard" />
+</WixLocalization>

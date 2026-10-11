@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Name=Creatte Tool
+GenericName=App Launcher
+Comment=Install, update and launch the Creatte Tool Suite
+Exec=creatte-tool
+TryExec=creatte-tool
+Icon=jp.creatte.creatte-tool
+Terminal=false
+StartupNotify=true
+StartupWMClass=creatte-tool
+Categories=Utility;PackageManager;
+Keywords=creatte;tool;launcher;installer;updater;photo;video;design;apps;
