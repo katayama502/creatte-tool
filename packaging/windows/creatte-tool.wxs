@@ -44,7 +44,7 @@
     <!-- MSI caches this icon using its Id as the filename; keep the .exe extension (ICE50). -->
     <Icon Id="CreatteToolIcon.exe" SourceFile="$(var.IconPath)" />
     <Property Id="ARPPRODUCTICON" Value="CreatteToolIcon.exe" />
-    <Property Id="ARPURLINFOABOUT" Value="https://github.com/katayama502/creatte-tool" />
+    <Property Id="ARPURLINFOABOUT" Value="https://katayama502.github.io/creatte-tool/" />
     <Property Id="ARPURLUPDATEINFO" Value="https://github.com/katayama502/creatte-tool/releases" />
     <Property Id="ARPHELPLINK" Value="https://github.com/katayama502/creatte-tool/issues" />
 

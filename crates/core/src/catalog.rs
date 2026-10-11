@@ -270,7 +270,7 @@ affiliated with, sponsored by or endorsed by any of these companies.";
 // ---- Branding: edit these to point at your own pages. ------------------------------------
 
 /// Creatte Tool's website (the sales page). Replace with your own domain when it is live.
-pub const WEBSITE_URL: &str = "https://github.com/katayama502/creatte-tool";
+pub const WEBSITE_URL: &str = "https://katayama502.github.io/creatte-tool";
 /// Does [`WEBSITE_URL`] have a page per app at `/apps/<id>`?
 pub const APP_PAGES: bool = false;
 /// Creatte Tool's source on GitHub.

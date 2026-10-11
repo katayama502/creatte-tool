@@ -57,7 +57,7 @@ packaging/linux/package.sh                   # Linux (.deb / .rpm / AppImage)
 
 | 定数 | 内容 | 既定値 |
 |---|---|---|
-| `WEBSITE_URL` | 公式サイト（販売ページ） | GitHub リポジトリ |
+| `WEBSITE_URL` | 公式サイト（販売ページ。`site/` を GitHub Pages で公開） | https://katayama502.github.io/creatte-tool |
 | `COMMUNITY_URL` | お問い合わせ先 | GitHub Issues |
 | `SOCIAL` | SNS アカウント | なし |
 | `apps_owner!()` | アプリ本体のダウンロード元（GitHub の owner） | `storytold`（アップストリーム） |
