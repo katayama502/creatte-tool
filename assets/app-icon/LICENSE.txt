@@ -1,0 +1,4 @@
+Creatte Film app icon (every file in this directory)
+
+Creatte's own artwork, replacing the upstream FilmCraft icon. Distributed with the code under
+MIT OR Apache-2.0. The Creatte name and marks belong to Creatte (株式会社クリエット).

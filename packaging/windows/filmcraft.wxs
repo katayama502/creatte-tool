@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  FilmCraft MSI (WiX Toolset v5: `dotnet tool install -g wix`). Built by package.ps1:
+
+    wix build filmcraft.wxs -arch x64 -d Version=1.2.3 -d BinDir=... -d IconPath=... -o out.msi
+
+  Per-machine install into Program Files and a Start Menu shortcut. No file associations.
+-->
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package
+      Name="Creatte Film"
+      Manufacturer="Creatte"
+      Version="$(var.Version)"
+      UpgradeCode="6C21FA15-E59B-4028-978C-B55F52F12CA2"
+      Scope="perMachine"
+      Compressed="yes"
+      Language="1033">
+    <SummaryInformation Description="Creatte Film video editor" Manufacturer="Creatte" />
+    <!-- Same-version upgrades let successive pre-releases of one X.Y.Z replace each other
+         (MSI versions are numeric, so 1.2.3-rc.1 and 1.2.3-rc.2 are both 1.2.3). -->
+    <MajorUpgrade AllowSameVersionUpgrades="yes"
+        DowngradeErrorMessage="A newer version of Creatte Film is already installed." />
+    <MediaTemplate EmbedCab="yes" CompressionLevel="high" />
+
+    <Icon Id="FilmcraftIcon.ico" SourceFile="$(var.IconPath)" />
+    <Property Id="ARPPRODUCTICON" Value="FilmcraftIcon.ico" />
+    <Property Id="ARPURLINFOABOUT" Value="https://katayama502.github.io/creatte-tool/" />
+    <Property Id="ARPURLUPDATEINFO" Value="https://katayama502.github.io/creatte-tool/" />
+    <Property Id="ARPHELPLINK" Value="https://github.com/katayama502/creatte-tool/issues" />
+
+    <StandardDirectory Id="ProgramFiles6432Folder">
+      <Directory Id="INSTALLFOLDER" Name="Creatte Film" />
+    </StandardDirectory>
+    <StandardDirectory Id="ProgramMenuFolder" />
+
+    <Feature Id="Main" Title="Creatte Film" Level="1">
+      <ComponentGroupRef Id="FilmcraftFiles" />
+    </Feature>
+  </Package>
+
+  <Fragment>
+    <ComponentGroup Id="FilmcraftFiles" Directory="INSTALLFOLDER">
+      <Component Id="FilmcraftApp" Guid="1DF18B91-8616-4E3C-A413-C8C2E71FEF25">
+        <File Id="FilmcraftExe" Source="$(var.BinDir)\filmcraft.exe" KeyPath="yes">
+          <Shortcut Id="StartMenuShortcut" Directory="ProgramMenuFolder" Name="Creatte Film"
+              Description="Creatte Film video editor" WorkingDirectory="INSTALLFOLDER" Advertise="yes"
+              Icon="FilmcraftIcon.ico" IconIndex="0" />
+        </File>
+
+        <RegistryValue Root="HKLM" Key="Software\Microsoft\Windows\CurrentVersion\App Paths\creatte-film.exe" Value="[#FilmcraftExe]" Type="string" />
+      </Component>
+
+      <Component Id="FilmcraftCli">
+        <File Id="FilmcraftCliExe" Source="$(var.BinDir)\filmcraft-cli.exe" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>

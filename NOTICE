@@ -1,0 +1,30 @@
+Creatte Film
+Copyright (c) 2026 Creatte (株式会社クリエット) and the Creatte Film contributors.
+
+Creatte Film is a modified version of FilmCraft (https://github.com/storytold/filmcraft, v0.6.0):
+  Copyright (c) 2026 ArtCraft Team and the FilmCraft contributors.
+  Licensed under the MIT License or the Apache License, Version 2.0, at your option.
+Creatte Film is distributed under the same terms: MIT OR Apache-2.0 (LICENSE-MIT, LICENSE-APACHE).
+
+Changes from the original (Apache-2.0 §4(b)): renamed to Creatte Film in the interface and
+installers; new app icon, wordmark and accent colour; the ArtCraft wordmark and brand files
+removed; Help/About links pointed at Creatte Tool; app id jp.creatte.creatte-film; new MSI GUIDs.
+Internal file-format identifiers (FilmCraft:* metadata keys, .fcproj, Info.plist FilmCraftVersion)
+are kept unchanged for compatibility.
+
+Trademarks. The ArtCraft name, wordmark and logos are trademarks of the ArtCraft Team and are not
+used in Creatte Film. Creatte Film is an independent product, not affiliated with or endorsed by
+the ArtCraft Team.
+
+Third-party material
+
+This product bundles third-party material under its own licenses, listed below. The per-file
+list (author, source, license) is in ATTRIBUTION.md.
+
+Inter font (assets/fonts/Inter-*.ttf) — OFL-1.1. See assets/fonts/OFL-Inter.txt.
+Noto Serif font (assets/fonts/NotoSerif-Regular.ttf) — OFL-1.1. See assets/fonts/OFL-NotoSerif.txt.
+JetBrains Mono font (assets/fonts/JetBrainsMono-Regular.ttf) — OFL-1.1. See assets/fonts/OFL-JetBrainsMono.txt.
+Builds made with craft-fonts (CRAFT_FONTS_DIR; all official releases) also embed the fonts listed in
+https://github.com/storytold/craft-fonts/blob/main/ATTRIBUTION.md (BIZ UDPGothic, Shippori Mincho,
+BIZ UDMincho) — OFL-1.1. Their licence texts ship with the packages as OFL-<family>.txt.
+Public-domain film and NASA frames and CC0 music shown in README screenshots (docs/images/) — public domain / CC0-1.0. See ATTRIBUTION.md.
