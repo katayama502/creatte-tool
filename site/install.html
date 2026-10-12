@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>インストール手順｜Creatte Tool</title>
+<meta name="description" content="Creatte Tool を Mac・Windows に入れる手順。注意画面が出たときの進め方を、画面のイラスト付きで説明します。">
+<meta property="og:title" content="Creatte Tool インストール手順">
+<meta property="og:image" content="https://katayama502.github.io/creatte-tool/og.png">
+<meta name="theme-color" content="#F39A28">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800;900&family=Geist+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: Creatte's signature, an orange page holding white rounded cards; one hero card with the live app screenshot, then sections as cards down the page. Single committed look (brand), not themed. */
+:root{
+  --orange:#F39A28; --orange-deep:#FF9100; --cream:#FFF3E0; --paper:#FEFEFE;
+  --ink:#1A1A1A; --body:#333333; --muted:#666666; --brown:#3D2014; --line:#F1DFC6;
+  --display:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Yu Gothic",system-ui,sans-serif;
+  --mono:"Geist Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --r-card:28px; --r-ctl:14px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--orange);color:var(--body);font-family:var(--display);font-weight:500;font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.10;background-image:radial-gradient(rgba(61,32,20,.35) .6px,transparent .7px);background-size:5px 5px}
+.wrap{max-width:1160px;margin:0 auto;padding-inline:clamp(16px,3vw,32px);padding-block:20px 48px;position:relative;display:flex;flex-direction:column;gap:22px}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--brown);outline-offset:3px;border-radius:8px}
+
+/* logo */
+.logo{display:inline-flex;align-items:baseline;gap:.32em;text-decoration:none;font-family:var(--display);font-weight:900;letter-spacing:-.01em;line-height:1}
+.logo .w span{display:inline-block}
+.logo .tool{color:var(--ink)}
+.c1{color:#3D2014}.c2{color:#E84C4C}.c3{color:#3B82C4}.c4{color:#2BAE6B}.c5{color:#F0B429}.c6{color:#E84C7A}
+
+/* top bar */
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;background:var(--paper);border-radius:999px;padding:10px 12px 10px 22px;box-shadow:0 6px 0 rgba(61,32,20,.12)}
+.bar .logo{font-size:24px}
+.bar nav{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.bar nav a{text-decoration:none;font-weight:700;font-size:14px;padding:8px 14px;border-radius:999px;color:var(--body)}
+.bar nav a:hover{background:var(--cream)}
+.bar nav a.btn-primary,.bar nav a.btn-primary:hover{color:#fff;background:var(--brown)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;font-family:var(--display);font-weight:800;font-size:15px;border-radius:999px;padding:12px 22px;border:2px solid transparent;cursor:pointer;transition:transform .15s ease, box-shadow .15s ease}
+.btn-primary{background:var(--brown);color:#fff;box-shadow:0 4px 0 #20100A}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 5px 0 #20100A}
+.btn-ghost{background:var(--paper);color:var(--brown);border-color:var(--brown)}
+.btn-ghost:hover{background:var(--cream)}
+.bar .btn{padding:9px 18px;font-size:14px}
+
+/* cards */
+.card{background:var(--paper);border-radius:var(--r-card);box-shadow:0 10px 30px rgba(120,60,0,.18);padding:clamp(22px,4vw,48px)}
+.eyebrow{font-family:var(--mono);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-deep)}
+h1,h2,h3{font-family:var(--display);color:var(--ink);text-wrap:balance;margin:0}
+h1{font-weight:900;font-size:clamp(32px,4.6vw,56px);line-height:1.22;letter-spacing:-.01em;word-break:keep-all;line-break:strict}
+.nw{white-space:nowrap}
+h2{font-weight:900;font-size:clamp(26px,3.4vw,38px);line-height:1.3}
+h3{font-weight:800;font-size:19px;line-height:1.45}
+p{margin:0}
+.lead{font-size:clamp(16px,1.6vw,19px);color:var(--body);max-width:36em}
+.u{background:linear-gradient(transparent 62%,var(--cream) 62%)}
+.sec-head{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.sec-head h2::after{content:"";display:block;width:56px;height:6px;border-radius:3px;background:var(--orange-deep);margin-top:14px}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1.1fr);gap:clamp(24px,4vw,48px);align-items:center;overflow:hidden}
+.hero-copy{display:flex;flex-direction:column;gap:20px;min-width:0}
+.hero .logo{font-size:clamp(30px,4vw,44px)}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap}
+.note{font-size:13px;color:var(--muted)}
+.facts{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--mono);font-weight:700;font-size:12px;letter-spacing:.06em;background:var(--cream);color:var(--brown);border-radius:999px;padding:5px 12px;font-variant-numeric:tabular-nums}
+.shot{position:relative;min-width:0}
+.shot img{display:block;width:100%;height:auto;border-radius:18px;box-shadow:0 18px 40px rgba(61,32,20,.28);border:6px solid var(--brown)}
+.shot .tag{position:absolute;left:-10px;bottom:-12px;background:var(--orange-deep);color:#fff;font-weight:800;font-size:13px;border-radius:999px;padding:6px 14px;box-shadow:0 4px 0 #B85F00}
+
+/* apps */
+.apps{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.app{display:grid;grid-template-columns:52px minmax(0,1fr);gap:14px;align-items:center;padding:14px;border-radius:20px;background:var(--cream)}
+.app svg{width:52px;height:52px;display:block}
+.app b{display:block;font-weight:800;color:var(--ink);font-size:16px;line-height:1.35}
+.app span{display:block;font-size:13px;line-height:1.5;color:var(--body)}
+.app i{display:block;font-style:normal;font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.02em}
+.tm{font-size:11px;color:var(--muted);margin-top:18px;line-height:1.6}
+
+/* features */
+.features{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.feat{display:flex;flex-direction:column;gap:10px;padding:22px;border-radius:22px;border:2px solid var(--line)}
+.feat .ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--orange);color:#fff}
+.feat .ic svg{width:24px;height:24px}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;counter-reset:s;list-style:none;margin:0;padding:0}
+.steps li{position:relative;padding:22px 22px 22px 22px;background:var(--cream);border-radius:22px;display:flex;flex-direction:column;gap:8px}
+.steps li::before{counter-increment:s;content:counter(s);font-family:var(--display);font-weight:900;font-size:22px;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--brown);color:#fff}
+
+/* split shot */
+.split{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(24px,4vw,44px);align-items:center}
+.split .shot img{border-color:var(--line)}
+.checks{list-style:none;padding:0;margin:18px 0 0;display:flex;flex-direction:column;gap:10px}
+.checks li{display:grid;grid-template-columns:24px minmax(0,1fr);gap:10px;align-items:start}
+.checks li::before{content:"";width:22px;height:22px;margin-top:4px;border-radius:50%;background:var(--orange-deep) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat}
+
+/* use cases + plans */
+.uses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.use{padding:22px;border-radius:22px;border:2px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.use .who{font-family:var(--mono);font-weight:700;font-size:12px;letter-spacing:.12em;color:var(--orange-deep)}
+.plans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.plan{border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:14px;border:2px solid var(--line)}
+.plan.pro{background:var(--brown);color:#F6EFE7;border-color:var(--brown)}
+.plan.pro h3,.plan.pro .price{color:#fff}
+.plan.pro .checks li::before{background-color:var(--orange)}
+.price{font-family:var(--display);font-weight:900;font-size:40px;color:var(--ink);line-height:1.1;font-variant-numeric:tabular-nums}
+.price small{font-size:15px;font-weight:700;margin-left:4px}
+.plan .btn{align-self:flex-start;margin-top:auto}
+.plan.pro .btn-primary{background:var(--orange);color:var(--ink);box-shadow:0 4px 0 #B85F00}
+
+/* faq */
+.faq{display:flex;flex-direction:column;gap:10px}
+.faq details{border-radius:18px;background:var(--cream);padding:4px 20px}
+.faq summary{cursor:pointer;font-weight:800;color:var(--ink);padding:14px 0;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-weight:900;color:var(--orange-deep);font-size:20px;line-height:1}
+.faq details[open] summary::after{content:"−"}
+.faq details p{padding:0 0 16px;max-width:60em}
+
+/* closing */
+.closing{text-align:center;display:flex;flex-direction:column;align-items:center;gap:18px}
+.closing .logo{font-size:clamp(40px,7vw,72px)}
+.dots{display:flex;gap:10px}.dots i{width:14px;height:14px;border-radius:50%;display:block}
+footer{color:#3D2014;font-size:12px;line-height:1.7;display:flex;flex-direction:column;gap:8px;padding-inline:8px}
+footer a{font-weight:700}
+
+@media (max-width:900px){
+  .hero,.split{grid-template-columns:minmax(0,1fr)}
+  .features,.steps,.uses{grid-template-columns:minmax(0,1fr)}
+  .plans{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:560px){
+  .bar{border-radius:24px}
+  .bar nav a.hide-s{display:none}
+}
+@media (prefers-reduced-motion:no-preference){
+  .hero .shot img{animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes rise{from{transform:translateY(14px) rotate(-1deg)}to{transform:none}}
+}
+/* guide additions */
+.h-s{font-size:18px;font-weight:800;margin-bottom:4px}
+.guide-hero{display:flex;flex-direction:column;gap:18px}
+.why{display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;background:var(--cream);border-radius:20px;padding:18px 20px}
+.why-ic{width:44px;height:44px;border-radius:50%;background:var(--brown);color:#fff;display:grid;place-items:center;font-weight:900;font-size:22px}
+.os-pick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.os{display:flex;flex-direction:column;gap:4px;text-decoration:none;border:2px solid var(--line);border-radius:22px;padding:20px 22px;transition:border-color .15s, transform .15s}
+.os:hover{border-color:var(--orange-deep);transform:translateY(-2px)}
+.os-name{font-weight:900;font-size:26px;color:var(--ink)}
+.os-sub{font-size:13px;color:var(--muted)}
+.os-go{margin-top:6px;font-weight:800;color:var(--orange-deep)}
+.os-go::after{content:" ↓"}
+.guide{list-style:none;margin:0;padding:0;counter-reset:g;display:flex;flex-direction:column;gap:0}
+.guide>li{display:grid;grid-template-columns:52px minmax(0,1fr) minmax(0,1fr);gap:18px 22px;align-items:start;padding:22px 0;border-top:2px dashed var(--line)}
+.guide>li:first-child{border-top:0;padding-top:4px}
+.guide>li::before{counter-increment:g;content:counter(g);width:48px;height:48px;border-radius:50%;background:var(--orange);color:#fff;font-weight:900;font-size:22px;display:grid;place-items:center;grid-row:span 2}
+.guide>li.done::before{content:"✓";background:#2BAE6B}
+.guide>li>.txt{grid-column:2 / span 2;display:flex;flex-direction:column;gap:8px;min-width:0}
+.guide>li:has(>figure)>.txt{grid-column:2}
+.guide>li>figure{grid-column:3;grid-row:1;margin:0;min-width:0}
+.guide h3{font-size:19px}
+.fname{font-family:var(--mono);font-weight:700;font-size:.86em;background:var(--cream);color:var(--brown);border-radius:6px;padding:1px 6px;word-break:break-all}
+.warn{color:#C0392B}
+code{font-family:var(--mono);font-size:.9em;background:var(--cream);border-radius:6px;padding:1px 6px;word-break:break-all}
+.code{background:#2A1A12;border-radius:14px;padding:14px 16px;overflow-x:auto;margin:6px 0 10px}
+.code code{background:none;color:#FFE2B8;padding:0;word-break:normal;white-space:pre}
+/* "tap here" marker */
+.hit{position:relative;outline:3px solid var(--orange-deep);outline-offset:3px}
+.hit-soft{outline:3px solid var(--orange-deep);outline-offset:1px;border-radius:6px}
+.tap{position:absolute;right:-8px;top:-30px;font-style:normal;white-space:nowrap;background:var(--orange-deep);color:#fff;font-family:var(--display);font-weight:800;font-size:12px;line-height:1;padding:6px 10px;border-radius:999px;box-shadow:0 3px 0 #B85F00}
+.tap::after{content:"";position:absolute;left:50%;bottom:-5px;margin-left:-5px;border:5px solid transparent;border-bottom:0;border-top-color:var(--orange-deep)}
+/* mock: macOS alert (system look, fixed light colours on purpose) */
+.mock{border-radius:16px;font-family:-apple-system,"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Segoe UI",system-ui,sans-serif}
+.mac-alert{background:#ECECEC;color:#1d1d1f;padding:22px 20px 16px;text-align:center;box-shadow:0 14px 34px rgba(0,0,0,.22);max-width:340px;justify-self:center;margin-inline:auto!important}
+.mac-ic{width:56px;height:56px;border-radius:14px;margin:0 auto 10px;background:#fff;display:grid;place-items:center;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.mac-ic span{width:30px;height:30px;border-radius:50%;background:#F5C04A;color:#fff;font-weight:900;display:grid;place-items:center}
+.mac-title{font-weight:700;font-size:13.5px;line-height:1.4;margin-bottom:6px}
+.mac-body{font-size:11.5px;line-height:1.5;color:#3a3a3c}
+.mac-btns{display:flex;flex-direction:column;gap:8px;margin-top:22px}
+.mb{display:block;background:#fff;border-radius:7px;padding:5px 10px;font-size:13px;box-shadow:0 0 0 .5px rgba(0,0,0,.18)}
+.mb-blue{background:#0A7AFF;color:#fff;box-shadow:none}
+.mac-settings{background:#F5F5F7;color:#1d1d1f;display:grid;grid-template-columns:150px minmax(0,1fr);overflow:hidden;box-shadow:0 14px 34px rgba(0,0,0,.18);font-size:12px}
+.ms-side{background:#E8E8EA;padding:14px 10px;display:flex;flex-direction:column;gap:4px}
+.ms-side span{padding:5px 8px;border-radius:6px;color:#3a3a3c}
+.ms-side .on{background:#0A7AFF;color:#fff}
+.ms-main{padding:16px 16px 22px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.ms-h{font-weight:700;font-size:13px}
+.ms-row{background:#fff;border-radius:8px;padding:8px 10px;color:#3a3a3c}
+.ms-block{background:#fff;border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:30px;align-items:flex-start}
+.ms-block .mb{margin-left:auto}
+.mac-dmg{background:#fff;border:1px solid #ddd;display:flex;align-items:center;justify-content:center;gap:18px;padding:26px 16px;color:#1d1d1f}
+.dmg-app{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px}
+.mini-mark{width:58px;height:58px;border-radius:14px;background:var(--orange);display:grid;place-items:center;color:var(--brown);font-family:var(--display);font-weight:900;font-size:28px;box-shadow:inset 0 0 0 8px var(--orange),inset 0 0 0 30px #fff}
+.mini-folder{width:62px;height:50px;border-radius:8px;background:#5AB3F0;position:relative}
+.mini-folder::before{content:"";position:absolute;left:4px;top:-7px;width:24px;height:10px;border-radius:4px 4px 0 0;background:#5AB3F0}
+.dmg-arrow{font-size:30px;color:var(--orange-deep);font-weight:900}
+/* mock: Edge downloads */
+.edge{background:#fff;color:#1b1b1b;border:1px solid #ddd;box-shadow:0 14px 34px rgba(0,0,0,.16);padding:14px;font-family:"Segoe UI","Yu Gothic UI","Meiryo",system-ui,sans-serif;font-size:12px}
+.edge-h{font-weight:700;font-size:14px;margin-bottom:10px}
+.edge-row{display:grid;grid-template-columns:28px minmax(0,1fr) 30px;gap:10px;align-items:center;background:#F7F7F7;border-radius:8px;padding:10px}
+.edge-file{width:24px;height:30px;background:#E5E5E5;border-radius:3px;border-left:4px solid #D13438}
+.edge-txt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.edge-txt b{word-break:break-all;font-size:12px}
+.edge-txt span{color:#A4262C;font-size:11px;line-height:1.45}
+.edge-more{display:grid;place-items:center;height:26px;border-radius:6px;font-weight:700}
+.edge-more .tap{top:-30px;right:-6px}
+.edge-menu{margin:6px 0 0 auto;width:fit-content;max-width:100%;background:#fff;border:1px solid #ddd;border-radius:8px;box-shadow:0 6px 16px rgba(0,0,0,.12);display:flex;flex-direction:column;padding:4px}
+.edge-menu span{padding:6px 12px}
+/* mock: SmartScreen (fixed brand-blue on purpose) */
+.smart{background:#0063B1;color:#fff;padding:22px 22px 16px;font-family:"Segoe UI","Yu Gothic UI","Meiryo",system-ui,sans-serif;box-shadow:0 14px 34px rgba(0,0,0,.22);border-radius:6px}
+.sm-h{font-size:19px;font-weight:300;line-height:1.35;margin-bottom:12px}
+.sm-b{font-size:12px;line-height:1.6;margin-bottom:10px}
+.sm-link{display:inline-block;margin-top:22px;font-size:12px;text-decoration:underline;padding:2px 4px;border-radius:2px}
+.sm-btns{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
+.sb{position:relative;border:2px solid #fff;padding:5px 18px;font-size:12px}
+.smart .hit{outline-color:#FFB65C}
+@media (max-width:900px){
+  .guide>li{grid-template-columns:44px minmax(0,1fr)}
+  .guide>li::before{width:40px;height:40px;font-size:18px;grid-row:span 1}
+  .guide>li>figure,.guide>li>.txt,.guide>li:has(>figure)>.txt{grid-column:2}
+  .guide>li>figure{grid-row:auto}
+  .os-pick{grid-template-columns:minmax(0,1fr)}
+  .mac-settings{grid-template-columns:minmax(0,1fr)}
+  .ms-side{display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="bar">
+    <a class="logo" href="./" aria-label="Creatte Tool トップへ"><span class="w"><span class="c1">C</span><span class="c2">r</span><span class="c3">e</span><span class="c4">a</span><span class="c5">t</span><span class="c5">t</span><span class="c6">e</span></span><span class="tool">Tool</span></a>
+    <nav aria-label="ページ内">
+      <a href="#mac">Mac の手順</a>
+      <a href="#windows">Windows の手順</a>
+      <a class="hide-s" href="#trouble">困ったとき</a>
+      <a class="btn btn-primary" href="https://github.com/katayama502/creatte-tool/releases/latest" rel="noopener">ダウンロード</a>
+    </nav>
+  </header>
+
+  <section class="card guide-hero" id="top">
+    <span class="eyebrow">Install guide</span>
+    <h1>インストール手順</h1>
+    <p class="lead">Creatte Tool を入れるときに、Mac や Windows が「確認できませんでした」という注意を出すことがあります。この手順どおりに進めれば、5分ほどで使い始められます。</p>
+    <div class="why">
+      <div class="why-ic" aria-hidden="true">?</div>
+      <div>
+        <h2 class="h-s">なぜ注意が出るの？</h2>
+        <p>Mac や Windows は、ネットからダウンロードしたアプリを開くとき、開発元が Apple や Microsoft に登録されているかを確かめます。Creatte Tool はこの登録（有料の署名）をしていないため、念のための注意が出ます。故障やウイルスの知らせではありません。Creatte Tool の中身はすべて GitHub で公開されていて、だれでも確認できます。</p>
+      </div>
+    </div>
+    <div class="os-pick">
+      <a class="os" href="#mac"><span class="os-name">Mac</span><span class="os-sub">macOS 11 以降・Apple シリコン / Intel</span><span class="os-go">手順を見る</span></a>
+      <a class="os" href="#windows"><span class="os-name">Windows</span><span class="os-sub">Windows 10 / 11・64ビット</span><span class="os-go">手順を見る</span></a>
+    </div>
+  </section>
+
+  <!-- ===================== Mac ===================== -->
+  <section class="card" id="mac" aria-labelledby="mac-h">
+    <div class="sec-head">
+      <span class="eyebrow">Mac</span>
+      <h2 id="mac-h">Mac に入れる</h2>
+      <p class="lead">注意は「ダウンロードしたファイルを開くとき」と「アプリを初めて開くとき」の2回出ます。どちらも、設定画面で「このまま開く」を押せば進めます。</p>
+    </div>
+    <ol class="guide">
+      <li>
+        <div class="txt">
+          <h3>ファイルをダウンロードする</h3>
+          <p><a href="https://github.com/katayama502/creatte-tool/releases/latest" rel="noopener">ダウンロードページ</a>を開き、<b class="fname">creatte-tool-0.2.1-macos-universal.dmg</b> をクリックします。ファイルは「ダウンロード」フォルダに保存されます。</p>
+        </div>
+      </li>
+      <li>
+        <div class="txt">
+          <h3>ファイルをダブルクリックすると、注意が出ます</h3>
+          <p>右のような画面が出たら、<b>「完了」</b>を押して閉じます。<b class="warn">「ゴミ箱に入れる」は押さないでください。</b>押してしまったときは、もう一度ダウンロードすれば大丈夫です。</p>
+        </div>
+        <figure class="mock mac-alert" aria-label="Mac の注意画面のイメージ">
+          <div class="mac-ic" aria-hidden="true"><span>!</span></div>
+          <p class="mac-title">“creatte-tool-0.2.1-macos-universal.dmg”は開いていません</p>
+          <p class="mac-body">Apple は、“creatte-tool-0.2.1-macos-universal.dmg”に Mac に損害を与えたり、プライバシーを侵害する可能性のあるマルウェアが含まれていないことを検証できませんでした。</p>
+          <div class="mac-btns"><span class="mb">ゴミ箱に入れる</span><span class="mb mb-blue hit">完了<i class="tap">ここを押す</i></span></div>
+        </figure>
+      </li>
+      <li>
+        <div class="txt">
+          <h3>「プライバシーとセキュリティ」を開く</h3>
+          <p>画面左上の <b>アップルマーク</b> →<b>「システム設定」</b>を開き、左の一覧から<b>「プライバシーとセキュリティ」</b>を選びます。右側を<b>いちばん下までスクロール</b>してください。</p>
+        </div>
+        <figure class="mock mac-settings" aria-label="システム設定のイメージ">
+          <div class="ms-side"><span>Wi-Fi</span><span>Bluetooth</span><span>通知</span><span class="on">プライバシーとセキュリティ</span><span>デスクトップと Dock</span></div>
+          <div class="ms-main">
+            <p class="ms-h">セキュリティ</p>
+            <p class="ms-row">アプリケーションの実行許可：App Store と既知のデベロッパ</p>
+            <div class="ms-block">
+              <p>“creatte-tool-0.2.1-macos-universal.dmg”は Mac を保護するためにブロックされました。</p>
+              <span class="mb hit">このまま開く<i class="tap">ここを押す</i></span>
+            </div>
+          </div>
+        </figure>
+      </li>
+      <li>
+        <div class="txt">
+          <h3>「このまま開く」を押して、パスワードを入れる</h3>
+          <p>もう一度確認が出るので<b>「このまま開く」</b>を押し、Mac にログインするときのパスワード（または Touch ID）で許可します。これでファイルが開きます。</p>
+        </div>
+      </li>
+      <li>
+        <div class="txt">
+          <h3>アプリを「アプリケーション」に入れる</h3>
+          <p>開いたウィンドウで、左の <b>Creatte Tool のアイコン</b>を右の <b>Applications（アプリケーション）フォルダ</b>へドラッグします。</p>
+        </div>
+        <figure class="mock mac-dmg" aria-label="ドラッグしてインストールするイメージ">
+          <div class="dmg-app"><div class="mini-mark" aria-hidden="true">C</div><span>Creatte Tool</span></div>
+          <div class="dmg-arrow" aria-hidden="true">→</div>
+          <div class="dmg-app"><div class="mini-folder" aria-hidden="true"></div><span>Applications</span></div>
+        </figure>
+      </li>
+      <li>
+        <div class="txt">
+          <h3>アプリを開く（もう一度だけ同じ注意が出ます）</h3>
+          <p>「アプリケーション」フォルダの <b>Creatte Tool</b> をダブルクリックします。手順2と同じ注意が出たら、<b>手順2〜4をもう一度</b>くり返してください。今度は「“Creatte Tool”は Mac を保護するためにブロックされました」と表示されます。</p>
+        </div>
+      </li>
+      <li class="done">
+        <div class="txt">
+          <h3>完了！次からはふつうに開けます</h3>
+          <p>注意が出るのは最初の1回だけです。Dock に追加しておくと便利です。</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ===================== Windows ===================== -->
+  <section class="card" id="windows" aria-labelledby="win-h">
+    <div class="sec-head">
+      <span class="eyebrow">Windows</span>
+      <h2 id="win-h">Windows に入れる</h2>
+      <p class="lead">注意は「ダウンロードするとき（ブラウザ）」と「インストーラーを開くとき（青い画面）」に出ることがあります。管理者権限は不要です。</p>
+    </div>
+    <ol class="guide">
+      <li>
+        <div class="txt">
+          <h3>ファイルをダウンロードする</h3>
+          <p><a href="https://github.com/katayama502/creatte-tool/releases/latest" rel="noopener">ダウンロードページ</a>で、ふつうのパソコンなら <b class="fname">creatte-tool-0.2.1-windows-x64.msi</b> をクリックします。Snapdragon など ARM のパソコンは <b class="fname">windows-arm64</b> のほうを選びます。</p>
+        </div>
+      </li>
+      <li>
+        <div class="txt">
+          <h3>ブラウザに止められたら「保存」する</h3>
+          <p><b>Edge</b> の場合：ダウンロード一覧の項目にマウスを合わせ、<b>「…」→「保存」</b>を選びます。さらに確認が出たら<b>「詳細表示」→「保持する」</b>を押します。</p>
+          <p><b>Chrome</b> の場合：<b>「保存」</b>（または「ダウンロードを続ける」）を押します。</p>
+        </div>
+        <figure class="mock edge" aria-label="Edge のダウンロード画面のイメージ">
+          <p class="edge-h">ダウンロード</p>
+          <div class="edge-row">
+            <div class="edge-file" aria-hidden="true"></div>
+            <div class="edge-txt"><b>creatte-tool-0.2.1-windows-x64.msi</b><span>このファイルは一般的にダウンロードされていません。開く前に、信頼できることを確認してください。</span></div>
+            <span class="edge-more hit">…<i class="tap">ここ</i></span>
+          </div>
+          <div class="edge-menu"><span class="hit-soft">保存</span><span>削除</span><span>このファイルが安全であることを報告する</span></div>
+        </figure>
+      </li>
+      <li>
+        <div class="txt">
+          <h3>ファイルを開き、青い画面で「詳細情報」を押す</h3>
+          <p>ダウンロードした <b>.msi</b> ファイルをダブルクリックします。青い画面が出たら、文章の下にある小さな<b>「詳細情報」</b>を押します。</p>
+        </div>
+        <figure class="mock smart" aria-label="Windows SmartScreen 画面のイメージ">
+          <p class="sm-h">Windows によって PC が保護されました</p>
+          <p class="sm-b">Microsoft Defender SmartScreen は認識されないアプリの起動を停止しました。このアプリを実行すると、PC に問題が起こる可能性があります。</p>
+          <p class="sm-link hit">詳細情報<i class="tap">ここを押す</i></p>
+          <div class="sm-btns"><span class="sb">実行しない</span></div>
+        </figure>
+      </li>
+      <li>
+        <div class="txt">
+          <h3>「実行」を押す</h3>
+          <p>アプリ名と「発行元：不明な発行元」が表示され、<b>「実行」</b>ボタンが出てきます。これを押すとインストーラーが始まります。</p>
+        </div>
+        <figure class="mock smart" aria-label="SmartScreen で実行ボタンが出た画面のイメージ">
+          <p class="sm-h">Windows によって PC が保護されました</p>
+          <p class="sm-b">アプリ：creatte-tool-0.2.1-windows-x64.msi<br>発行元：不明な発行元</p>
+          <div class="sm-btns"><span class="sb hit">実行<i class="tap">ここを押す</i></span><span class="sb">実行しない</span></div>
+        </figure>
+      </li>
+      <li>
+        <div class="txt">
+          <h3>インストーラーを進める（英語の画面です）</h3>
+          <p><b>Next</b>（次へ）を押していき、保存先はそのままで <b>Install</b>（インストール）、最後に <b>Finish</b>（完了）を押します。「Create a desktop shortcut」にチェックを入れると、デスクトップにアイコンができます。</p>
+        </div>
+      </li>
+      <li class="done">
+        <div class="txt">
+          <h3>完了！スタートメニューから開けます</h3>
+          <p>スタートメニューで「Creatte」と入力すると出てきます。注意が出るのは最初の1回だけです。</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ===================== Trouble ===================== -->
+  <section class="card" id="trouble" aria-labelledby="t-h">
+    <div class="sec-head">
+      <span class="eyebrow">Troubleshooting</span>
+      <h2 id="t-h">うまくいかないとき</h2>
+    </div>
+    <div class="faq">
+      <details open>
+        <summary>Mac：「このまま開く」ボタンが見つからない</summary>
+        <p>ボタンが出るのは、ファイルを開こうとしてから<b>約1時間以内</b>です。もう一度ファイルをダブルクリックして注意を出し、「完了」で閉じてから、すぐに「プライバシーとセキュリティ」を開いてください。それでも出ないときは、次の「ターミナルで開く方法」を試してください。</p>
+      </details>
+      <details>
+        <summary>Mac：ターミナルで開く方法（上級者向け）</summary>
+        <p>「アプリケーション」→「ユーティリティ」→<b>「ターミナル」</b>を開き、次の1行を貼り付けて Enter を押します。ダウンロードしたファイルの「確認待ち」の印を外すコマンドです。そのあとファイルをダブルクリックすれば、注意なしで開けます。</p>
+        <div class="code"><code id="cmd">xattr -d com.apple.quarantine ~/Downloads/creatte-tool-0.2.1-macos-universal.dmg</code></div>
+        <p class="note">ファイルを「ダウンロード」以外に保存した場合は、<code>xattr -d com.apple.quarantine </code>（最後に半角スペース）まで入力してから、ファイルをターミナルにドラッグして Enter を押します。</p>
+      </details>
+      <details>
+        <summary>Windows：「詳細情報」を押しても「実行」が出ない／「Smart App Control によってブロックされました」と出る</summary>
+        <p>Windows 11 の<b>「スマート アプリ コントロール」</b>がオンになっていると、署名のないアプリは開けません。「設定」→「プライバシーとセキュリティ」→「Windows セキュリティ」→「アプリとブラウザーの制御」→「スマート アプリ コントロールの設定」で状態を確認できます。オフにするとほかのアプリにも影響するため、<b>会社や学校のパソコンでは必ず管理者に相談</b>してください。</p>
+      </details>
+      <details>
+        <summary>会社・学校のパソコンでインストールできない</summary>
+        <p>管理者がアプリのインストールを制限していることがあります。この場合は、IT 担当の方にこのページを見せて、Creatte Tool を許可してもらってください。導入サポートもご相談いただけます。</p>
+      </details>
+      <details>
+        <summary>本当に安全ですか？</summary>
+        <p>Creatte Tool のプログラムはすべて <a href="https://github.com/katayama502/creatte-tool" rel="noopener">GitHub で公開</a>されていて、だれでも中身を確認できます。ダウンロードページのファイルは、その公開されたプログラムから GitHub 上で自動的に作られたものです。注意が出るのは、Apple・Microsoft への有料の署名登録をしていないためで、ウイルスが見つかったという意味ではありません。必ず<b>このサイトのダウンロードページ</b>から入手してください。</p>
+      </details>
+      <details>
+        <summary>ダウンロードしたファイルが本物か確かめたい（上級者向け）</summary>
+        <p>ダウンロードページの <b class="fname">SHA256SUMS.txt</b> に、各ファイルの「指紋」（SHA-256）が書いてあります。Mac はターミナルで <code>shasum -a 256 ファイル名</code>、Windows は PowerShell で <code>Get-FileHash ファイル名</code> を実行し、同じ文字列なら本物です。</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="card closing" aria-labelledby="c-h">
+    <h2 id="c-h">準備ができたら、ダウンロード</h2>
+    <p class="lead" style="text-align:center">Mac・Windows とも無料です。わからないことがあれば、お気軽にお問い合わせください。</p>
+    <div class="cta-row" style="justify-content:center">
+      <a class="btn btn-primary" href="https://github.com/katayama502/creatte-tool/releases/latest" rel="noopener">ダウンロードページへ</a>
+      <a class="btn btn-ghost" href="https://github.com/katayama502/creatte-tool/issues" rel="noopener">問い合わせる</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Creatte（株式会社クリエット）. Apple、Mac、macOS は Apple Inc. の、Microsoft、Windows、Edge は Microsoft Corporation の、Chrome は Google LLC の商標です。画面のイラストは説明用のイメージで、実際の表示は OS やブラウザのバージョンによって少し異なります。</p>
+  </footer>
+</div>
+</body>
+</html>

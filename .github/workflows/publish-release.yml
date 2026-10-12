@@ -1,0 +1,64 @@
+# Publishes a GitHub Release from the latest successful "macOS DMG" and "Windows installer" runs
+# on main: the DMG, the MSIs, the portable ZIPs and SHA256SUMS.txt (the launcher's self-update
+# and the website's download button read this release).
+name: Publish release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to publish, e.g. 0.2.1 (must match the built files)"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      VERSION: ${{ inputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Collect the latest builds
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          for wf in macos-dmg.yml windows-installer.yml; do
+            id="$(gh run list --workflow "$wf" --branch main --status success --limit 1 --json databaseId -q '.[0].databaseId')"
+            [ -n "$id" ] || { echo "::error::no successful run of $wf"; exit 1; }
+            echo "using $wf run $id"
+            gh run download "$id" -D "dist/$wf"
+          done
+          find dist -type f \( -name '*.dmg' -o -name '*.msi' -o -name '*.zip' \) -exec mv {} dist/ \;
+          cd dist
+          ls -1 *"-$VERSION-"* >/dev/null || { echo "::error::no files for version $VERSION"; exit 1; }
+          sha256sum *.dmg *.msi *.zip > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+      - name: Create the release
+        run: |
+          set -euo pipefail
+          cat > notes.md <<NOTES
+          ## Creatte Tool $VERSION
+
+          | パソコン | ファイル |
+          |---|---|
+          | Mac（Apple シリコン / Intel） | \`creatte-tool-$VERSION-macos-universal.dmg\` |
+          | Windows（ふつうのパソコン） | \`creatte-tool-$VERSION-windows-x64.msi\` |
+          | Windows（Snapdragon など ARM） | \`creatte-tool-$VERSION-windows-arm64.msi\` |
+
+          はじめて開くときに「確認できませんでした」という注意が出ます。
+          **[インストール手順](https://katayama502.github.io/creatte-tool/install.html)** のとおりに進めてください。
+
+          - Mac：注意を「完了」で閉じる →「システム設定」→「プライバシーとセキュリティ」→「このまま開く」
+          - Windows：青い画面で「詳細情報」→「実行」
+
+          各ファイルの SHA-256 は \`SHA256SUMS.txt\` に記載しています。
+          NOTES
+          sed -i 's/^          //' notes.md
+          gh release create "v$VERSION" --target "$GITHUB_SHA" --title "Creatte Tool $VERSION" \
+            --notes-file notes.md --latest \
+            dist/*.dmg dist/*.msi dist/*.zip dist/SHA256SUMS.txt
