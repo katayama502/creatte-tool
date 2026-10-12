@@ -6,6 +6,7 @@ name: Build Creatte Film
 on:
   push:
     branches: [creatte-film]
+    paths-ignore: ["distribution/**", ".github/workflows/package.yml"]
   workflow_dispatch:
 
 permissions:

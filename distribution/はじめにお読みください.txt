@@ -1,0 +1,11 @@
+Creatte Film 0.6.0（動画編集ソフト）
+
+1. 「インストール手順.html」（または .pdf）を開いてください。
+2. Mac をお使いの方は「Mac」フォルダ、Windows の方は「Windows」フォルダのファイルを使います。
+3. はじめて開くときに「確認できませんでした」という注意が出ます。手順書のとおりに進めれば使い始められます。
+
+対応：macOS 11 以降（Apple シリコン / Intel）、Windows 10 / 11（64 ビット / ARM）
+お問い合わせ：https://katayama502.github.io/creatte-tool/
+
+Creatte Film は FilmCraft（© ArtCraft Team and the FilmCraft contributors）を Creatte が改変したソフトウェアで、
+MIT License または Apache License 2.0 で配布しています。詳しくは「ライセンス」フォルダをご覧ください。

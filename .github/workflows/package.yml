@@ -1,0 +1,61 @@
+# Publishes the Creatte Film hand-out: takes the installers from the latest successful
+# "Build Creatte Film" run on this branch, adds the install guide (distribution/), zips it and
+# attaches it to the GitHub release "creatte-film-<version>" (never marked "latest", so the
+# Creatte Tool launcher and website keep pointing at their own release).
+name: Package Creatte Film
+
+on:
+  push:
+    branches: [creatte-film]
+    paths: ["distribution/**", ".github/workflows/package.yml"]
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check out craft-fonts (for the font licences)
+        uses: actions/checkout@v4
+        with:
+          repository: storytold/craft-fonts
+          ref: abb83316d96aa59c1cf64784289e378fe9fa5695
+          path: craft-fonts
+      - name: Download the latest installers
+        run: |
+          set -euo pipefail
+          id="$(gh run list --workflow build.yml --branch creatte-film --status success --limit 1 --json databaseId -q '.[0].databaseId')"
+          [ -n "$id" ] || { echo "::error::no successful build yet"; exit 1; }
+          echo "using build run $id"
+          gh run download "$id" -D artifacts
+      - name: Build the ZIP
+        run: |
+          set -euo pipefail
+          VERSION="$(awk '/^\[/ { p = ($0 == "[workspace.package]"); next } p && $1 == "version" { gsub(/[" ]/, "", $3); print $3; exit }' Cargo.toml)"
+          echo "VERSION=$VERSION" >>"$GITHUB_ENV"
+          mkdir -p out
+          CRAFT_FONTS_DIR="$PWD/craft-fonts" python3 distribution/package.py artifacts "$VERSION" "out/Creatte-Film-$VERSION.zip"
+      - name: Publish the release
+        run: |
+          set -euo pipefail
+          tag="creatte-film-$VERSION"
+          cat > notes.md <<NOTES
+          ## Creatte Film $VERSION（動画編集ソフト・単体配布）
+
+          **Creatte-Film-$VERSION.zip** に、Mac・Windows のインストーラーとインストール手順書（HTML・PDF）が入っています。
+          ZIP を開いて「はじめにお読みください.txt」から進めてください。
+          はじめて開くときに「確認できませんでした」という注意が出ますが、手順書のとおりに進めれば使い始められます。
+
+          Creatte Film は FilmCraft（© ArtCraft Team and the FilmCraft contributors）を Creatte が改変したもので、MIT OR Apache-2.0 で配布しています。
+          NOTES
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release upload "$tag" "out/Creatte-Film-$VERSION.zip" --clobber
+          else
+            gh release create "$tag" --target "$GITHUB_SHA" --title "Creatte Film $VERSION" \
+              --notes-file notes.md --latest=false "out/Creatte-Film-$VERSION.zip"
+          fi
